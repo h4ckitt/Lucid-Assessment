@@ -12,7 +12,7 @@ class User(Base):
     email = Column(String(100), nullable=False)
     password = Column(String(255), nullable=False)
 
-	posts = relationship("Post", back_populates="owner")
+    posts = relationship("Post", back_populates="owner")
 
 
 class Post(Base):
@@ -20,6 +20,6 @@ class Post(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
-	owner_id = Column(Integer, ForeignKey("users.id"))
+    owner_id = Column(Integer, ForeignKey("users.id"))
 
-	owner = relationship("User", back_populates="posts")
+    owner = relationship("User", back_populates="posts")

@@ -7,10 +7,14 @@ class LoginModel(BaseModel):
 
 
 class SignUp(BaseModel):
+    id: int
     email: EmailStr
     first_name: str
     last_name: str
     password: str
+
+    class Config:
+        orm_mode = True
 
 
 class Token(BaseModel):

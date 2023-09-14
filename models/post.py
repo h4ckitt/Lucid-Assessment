@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from models.user import SignUp
 
 
-class Post(BaseModel):
+class PostModel(BaseModel):
     id: int
     title: str
     content: str
