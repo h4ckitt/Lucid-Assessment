@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models.post import PostIn
+from models.post import PostModel
 from models.sql_models import Post, User
 
 
@@ -8,7 +8,7 @@ def get_users_db_posts(user: User, session: Session):
     return posts
 
 
-def create_post_in_db(user: User, post: PostIn, session: Session):
+def create_post_in_db(user: User, post: PostModel, session: Session):
     db_post = Post(title=post.title, content=post.content, owner_id=user.id)
     session.add(db_post)
     session.commit()

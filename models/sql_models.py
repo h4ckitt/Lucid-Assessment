@@ -22,4 +22,4 @@ class Post(Base):
     content = Column(Text, nullable=False)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
-    owner = relationship("User", back_populates="posts")
+    owner = relationship("User", back_populates="posts", lazy="joined")
