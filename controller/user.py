@@ -5,10 +5,8 @@ from sqlalchemy.orm import Session
 from controller.utils import create_access_token, hash_password, verify_password
 from models.user import LoginModel, SignUp
 from models.sql_models import User
-from cachetools import cached, TTLCache
 
 
-@cached(cache=TTLCache(maxsize=10, ttl=60 * 5))
 def get_user(email: str, session: Session):
     user = session.query(User).filter_by(email=email).first()
     return user
