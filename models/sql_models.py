@@ -8,4 +8,4 @@ class User(Base):
     first_name = Column(String(100), nullable=False)
     last_name = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False)
-    password = Column(String(50), nullable=False)
+    password = Column(String(255), nullable=False)

@@ -22,3 +22,7 @@ def create_access_token(data: dict, expiry: timedelta | None):
     to_encode.update({"exp": token_expiry})
     token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return token
+
+
+def verify_password(password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(password, hashed_password)

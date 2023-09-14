@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, APIRouter
 from models.user import LoginModel, SignUp
 from view.functions import get_session
-from controller.user import create_user, get_user
+from controller.user import create_user, get_user, login_controller
 
 
 router = APIRouter()
@@ -22,4 +22,5 @@ async def signup(user: SignUp, session: Session = Depends(get_session)):
 @router.post("/login")
 async def login(user: LoginModel, session: Session = Depends(get_session)):
     # get token from controller, if token is none, return error
-    return
+    response = login_controller(user, session)
+    return response

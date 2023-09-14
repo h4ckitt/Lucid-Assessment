@@ -1,6 +1,9 @@
+from datetime import timedelta
+from fastapi import status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from controller.utils import hash_password
-from models.login import SignUp
+from controller.utils import create_access_token, hash_password, verify_password
+from models.user import LoginModel, SignUp
 from models.sql_models import User
 
 
@@ -20,3 +23,26 @@ def create_user(user: SignUp, session: Session):
     session.add(user)
     session.commit()
     session.refresh(user)
+
+
+def login_controller(user: LoginModel, session: Session):
+    get_user = session.query(User).filter_by(email=user.email).first()
+    if get_user is None:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content={"message": "A user with that Email does not exist."},
+        )
+
+    if verify_password(user.password, str(get_user.password)):
+        token = create_access_token(
+            data={"sub": user.email}, expiry=timedelta(minutes=30)
+        )
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"access_token": token, "token_type": "Bearer"},
+        )
+
+    return JSONResponse(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        content={"message": "Invalid Email or Password"},
+    )
