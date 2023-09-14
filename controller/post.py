@@ -15,6 +15,7 @@ def create_post_in_db(user: User, post: PostIn, session: Session):
     session.add(db_post)
     session.commit()
     session.refresh(db_post)
+    return db_post.id
 
 
 def get_post_by_id(post_id: int, session: Session):

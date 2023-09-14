@@ -58,8 +58,8 @@ async def create_post(
             content={"message": "User with Email not found"},
         )
 
-    create_post_in_db(post=post, user=user, session=session)
-    return JSONResponse(content={"message": "Created Successfully"})
+    id = create_post_in_db(post=post, user=user, session=session)
+    return JSONResponse(content={"post_id": id})
 
 
 @post_router.delete("/posts/{post_id}")
