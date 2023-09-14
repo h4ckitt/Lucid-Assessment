@@ -7,7 +7,3 @@ def get_session():
         yield session
     finally:
         session.close()
-
-
-def hash_password(password: str) -> str:
-    return ""
